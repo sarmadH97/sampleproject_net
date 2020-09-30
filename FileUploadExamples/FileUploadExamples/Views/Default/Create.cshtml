@@ -1,0 +1,56 @@
+﻿@model FileUploadExamples.ViewModels.StudentDetailsViewModel;
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>StudentDetails</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Sname" class="control-label"></label>
+                <input asp-for="Sname" class="form-control" />
+                <span asp-validation-for="Sname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="batch" class="control-label"></label>
+                <input asp-for="batch" class="form-control" />
+                <span asp-validation-for="batch" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="Custom-file">
+                    <label class="Custom-file-label">Choose Image</label>
+                    <input multiple asp-for="Photo" class="form-control Custom-file-input" />
+                </div>
+                
+                @*<span asp-validation-for="ImagePath" class="text-danger"></span>*@
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            $('.Custom-file-input').on('change', function(){
+                var  filename = $(this).val().split('\\').pop()
+                $(this).next('.Custom-file-label').html(filename);
+            })
+
+
+        })
+    </script>
+}
